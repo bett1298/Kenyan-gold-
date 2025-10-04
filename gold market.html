@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Experiences from Farmers | Kenyan Gold | Citizen TV</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --citizen-red: #e41e26;
+      --citizen-dark: #333;
+      --gold: #d4af37;
+      --light-gold: #f5e8b0;
+      --dark-green: #2e5a1c;
+      --light-green: #4a7c2a;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #666;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      background: var(--citizen-red);
+      color: white;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-container img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-menu li {
+      margin-left: 1.5rem;
+    }
+    
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-menu a:hover {
+      color: var(--light-gold);
+    }
+    
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url("https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80") no-repeat center/cover;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Main Content */
+    .main-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .filter-options {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: var(--light-gray);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn.active {
+      background: var(--citizen-red);
+      color: white;
+    }
+    
+    .filter-btn:hover:not(.active) {
+      background: var(--medium-gray);
+    }
+    
+    .search-box {
+      position: relative;
+    }
+    
+    .search-box input {
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1px solid var(--medium-gray);
+      border-radius: 20px;
+      width: 250px;
+    }
+    
+    .search-box i {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--dark-gray);
+    }
+    
+    /* Experiences Grid */
+    .experiences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .experience-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .experience-thumbnail {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .experience-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .experience-card:hover .experience-thumbnail img {
+      transform: scale(1.05);
+    }
+    
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .experience-card:hover .play-icon {
+      opacity: 1;
+    }
+    
+    .experience-duration {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    
+    .experience-content {
+      padding: 1.5rem;
+    }
+    
+    .experience-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--citizen-dark);
+    }
+    
+    .experience-description {
+      color: var(--dark-gray);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .farmer-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .farmer-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .farmer-details {
+      flex: 1;
+    }
+    
+    .farmer-name {
+      font-weight: bold;
+      color: var(--citizen-dark);
+    }
+    
+    .farmer-location {
+      color: var(--dark-gray);
+      font-size: 0.85rem;
+    }
+    
+    .experience-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .experience-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--medium-gray);
+    }
+    
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--dark-gray);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+    
+    .action-btn:hover {
+      color: var(--citizen-red);
+      background: var(--light-gray);
+    }
+    
+    .action-btn.liked {
+      color: var(--citizen-red);
+    }
+    
+    .watch-full-btn {
+      background: var(--citizen-red);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .watch-full-btn:hover {
+      background: #b9151c;
+    }
+    
+    /* Video Modal */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: var(--citizen-dark);
+      color: white;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-body {
+      padding: 0;
+    }
+    
+    .modal-body video {
+      width: 100%;
+      display: block;
+    }
+    
+    .modal-footer {
+      padding: 1rem 1.5rem;
+    }
+    
+    /* Comment Section */
+    .comment-section {
+      margin-top: 1.5rem;
+    }
+    
+    .comment-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .comment-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--medium-gray);
+      border-radius: 20px;
+    }
+    
+    .comment-input button {
+      background: var(--citizen-red);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .comment-input button:hover {
+      background: #b9151c;
+    }
+    
+    .comments-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .comment {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--medium-gray);
+    }
+    
+    .comment:last-child {
+      border-bottom: none;
+    }
+    
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .comment-author {
+      font-weight: bold;
+      color: var(--citizen-dark);
+    }
+    
+    .comment-time {
+      color: var(--dark-gray);
+      font-size: 0.8rem;
+    }
+    
+    .comment-text {
+      margin-bottom: 0.5rem;
+    }
+    
+    .comment-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .comment-action {
+      background: none;
+      border: none;
+      color: var(--dark-gray);
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .comment-action:hover {
+      color: var(--citizen-red);
+    }
+    
+    .reply-section {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .reply {
+      padding: 0.5rem 0;
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .reply-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .reply-input input {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--medium-gray);
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .reply-input button {
+      background: var(--light-green);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    /* Subscribe Popup */
+    .subscribe-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+    
+    .popup-content h3 {
+      color: var(--citizen-dark);
+      margin-bottom: 1rem;
+    }
+    
+    .popup-content p {
+      margin-bottom: 1.5rem;
+      color: var(--dark-gray);
+    }
+    
+    .popup-content .subscribe-btn {
+      display: inline-block;
+      background: #ff0000;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      transition: background 0.3s;
+    }
+    
+    .popup-content .subscribe-btn:hover {
+      background: #cc0000;
+    }
+    
+    .popup-content .confirm-btn {
+      background: var(--light-green);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    
+    .popup-content .confirm-btn:hover {
+      background: var(--dark-green);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--citizen-dark);
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-section a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-section a:hover {
+      color: var(--gold);
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--citizen-red);
+      border-radius: 50%;
+      color: white;
+      transition: background 0.3s;
+    }
+    
+    .social-icons a:hover {
+      background: var(--gold);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #444;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+      }
+      
+      .nav-menu {
+        margin-top: 1rem;
+      }
+      
+      .nav-menu li {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+      
+      .filter-bar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .filter-options {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .search-box input {
+        width: 100%;
+      }
+      
+      .experiences-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNTAiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNSwxMGgxNzB2MzBIMTVWMzBIMzVWMjBIMTVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQ1LDEwaDEwVjQwSDQ1VjI1SDM1VjE1SDQ1VjEwWiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik02NSwxMGgxMHYzMEg2NVYyNUg1NVYxNUg2NVYxMFoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODUsMTBoMTB2MzBIODVWMjVINzVWMTVIODVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEwNSwxMGgxMHYzMEgxMDVWMjVIMTA1VjE1SDEwNVYxMFoiLz48L3N2Zz4=" alt="Citizen TV Logo">
+        <div class="logo-text">Citizen TV</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="episodes.html">Episodes</a></li>
+        <li><a href="experiences.html" class="active">Farmer Experiences</a></li>
+        <li><a href="success-stories.html">Success Stories</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>Real Experiences from Farmers</h1>
+    <p>Watch authentic stories from Kenyan farmers sharing their journeys, challenges, and successes</p>
+  </div>
+
+  <div class="main-container">
+    <div class="filter-bar">
+      <div class="filter-options">
+        <button class="filter-btn active">All Experiences</button>
+        <button class="filter-btn">Success Stories</button>
+        <button class="filter-btn">Farming Tips</button>
+        <button class="filter-btn">Crop Challenges</button>
+        <button class="filter-btn">Market Insights</button>
+      </div>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search farmer experiences...">
+      </div>
+    </div>
+
+    <div class="experiences-grid" id="experiencesList">
+      <!-- Experiences will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Farmer Experience</h3>
+        <button class="close-modal" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <video controls id="modalVideo">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="modal-footer">
+        <div class="comment-section">
+          <div class="comment-input">
+            <input type="text" id="commentInput" placeholder="Add a comment...">
+            <button id="postComment">Post</button>
+          </div>
+          <div class="comments-list" id="commentsList">
+            <!-- Comments will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscribe Popup -->
+  <div class="subscribe-popup" id="subscribePopup">
+    <div class="popup-content">
+      <h3>Subscribe to Watch Full Experiences 🎥</h3>
+      <p>Please subscribe to our YouTube channel to access all full-length farmer experiences.</p>
+      <a href="https://www.youtube.com/@candle-o1p" target="_blank" class="subscribe-btn">Subscribe Now</a>
+      <br>
+      <button class="confirm-btn" id="confirmSubscribe">I've Subscribed ✅</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Kenyan Gold</h3>
+        <p>Citizen TV's premier agricultural program showcasing the best of Kenyan farming and agribusiness.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="episodes.html">Episodes</a></li>
+          <li><a href="experiences.html">Farmer Experiences</a></li>
+          <li><a href="success-stories.html">Success Stories</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> Royal Media Services, Nairobi</li>
+          <li><i class="fas fa-phone"></i> +254 20 222 1221</li>
+          <li><i class="fas fa-envelope"></i> kenyangold@citizen.tv</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; 2023 Kenyan Gold | Citizen TV. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getDatabase, ref, onValue, update, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+      authDomain: "manuu-59b30.firebaseapp.com",
+      databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+      projectId: "manuu-59b30",
+      storageBucket: "manuu-59b30.firebasestorage.app",
+      messagingSenderId: "872309397811",
+      appId: "1:872309397811:web:ebe13952c02b7394954646",
+      measurementId: "G-Z33JK3J3FM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const experiencesRef = ref(db, "experiences");
+
+    let currentExperienceId = null;
+    let currentYoutubeUrl = null;
+
+    // Render experiences on page load
+    function renderExperiences() {
+      onValue(experiencesRef, (snapshot) => {
+        const experiencesList = document.getElementById("experiencesList");
+        experiencesList.innerHTML = "";
+
+        if (!snapshot.exists()) {
+          // If no experiences in database, show sample experiences
+          displaySampleExperiences();
+          return;
+        }
+
+        snapshot.forEach((experienceSnap) => {
+          const experience = experienceSnap.val();
+          const experienceId = experienceSnap.key;
+          createExperienceCard(experience, experienceId);
+        });
+      });
+    }
+
+    // Create an experience card
+    function createExperienceCard(experience, experienceId) {
+      const experienceCard = document.createElement("div");
+      experienceCard.classList.add("experience-card");
+      
+      experienceCard.innerHTML = `
+        <div class="experience-thumbnail">
+          <img src="${experience.imageUrl}" alt="${experience.title}">
+          <div class="play-icon">
+            <i class="fas fa-play"></i>
+          </div>
+          <div class="experience-duration">${experience.duration || '5:30'}</div>
+        </div>
+        <div class="experience-content">
+          <h3 class="experience-title">${experience.title}</h3>
+          <p class="experience-description">${experience.description}</p>
+          
+          <div class="farmer-info">
+            <div class="farmer-avatar">${experience.farmerName ? experience.farmerName.charAt(0) : 'F'}</div>
+            <div class="farmer-details">
+              <div class="farmer-name">${experience.farmerName || 'Farmer'}</div>
+              <div class="farmer-location">${experience.location || 'Kenya'}</div>
+            </div>
+          </div>
+          
+          <div class="experience-meta">
+            <span><i class="far fa-calendar"></i> ${experience.date || 'May 15, 2023'}</span>
+            <span><i class="far fa-eye"></i> ${experience.views || '1.2K'} views</span>
+          </div>
+          <div class="experience-actions">
+            <button class="action-btn like-btn" data-experience-id="${experienceId}">
+              <i class="far fa-thumbs-up"></i> <span>${experience.likes || 0}</span>
+            </button>
+            <button class="action-btn comment-btn" data-experience-id="${experienceId}">
+              <i class="far fa-comment"></i> <span>${experience.comments ? Object.keys(experience.comments).length : 0}</span>
+            </button>
+            <button class="watch-full-btn" data-youtube-url="${experience.youtubeUrl || 'https://www.youtube.com/@candle-o1p'}">
+              <i class="fas fa-play-circle"></i> Watch Full
+            </button>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById("experiencesList").appendChild(experienceCard);
+      
+      // Add event listeners
+      experienceCard.querySelector('.experience-thumbnail').addEventListener('click', () => openVideoModal(experience, experienceId));
+      experienceCard.querySelector('.like-btn').addEventListener('click', (e) => likeExperience(e, experienceId, experience.likes || 0));
+      experienceCard.querySelector('.comment-btn').addEventListener('click', () => openVideoModal(experience, experienceId, true));
+      experienceCard.querySelector('.watch-full-btn').addEventListener('click', (e) => {
+        const youtubeUrl = e.currentTarget.getAttribute('data-youtube-url');
+        watchFullExperience(youtubeUrl);
+      });
+    }
+
+    // Open video modal
+    function openVideoModal(experience, experienceId, focusComment = false) {
+      currentExperienceId = experienceId;
+      const modal = document.getElementById('videoModal');
+      const modalVideo = document.getElementById('modalVideo');
+      const modalTitle = document.getElementById('modalTitle');
+      
+      modalTitle.textContent = experience.title;
+      modalVideo.src = experience.videoUrl;
+      modal.style.display = 'flex';
+      
+      if (focusComment) {
+        setTimeout(() => {
+          document.getElementById('commentInput').focus();
+        }, 300);
+      }
+      
+      // Load comments for this experience
+      loadComments(experienceId);
+    }
+
+    // Close video modal
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('videoModal').style.display = 'none';
+      document.getElementById('modalVideo').pause();
+    });
+
+    // Like an experience
+    function likeExperience(e, experienceId, currentLikes) {
+      const likeBtn = e.currentTarget;
+      const likeCount = likeBtn.querySelector('span');
+      
+      update(ref(db, "experiences/" + experienceId), {
+        likes: currentLikes + 1
+      }).then(() => {
+        likeBtn.classList.add('liked');
+        likeBtn.querySelector('i').className = 'fas fa-thumbs-up';
+        likeCount.textContent = currentLikes + 1;
+      });
+    }
+
+    // Watch full experience (with subscribe popup)
+    function watchFullExperience(youtubeUrl) {
+      currentYoutubeUrl = youtubeUrl;
+      document.getElementById('subscribePopup').style.display = 'flex';
+    }
+
+    // Confirm subscription
+    document.getElementById('confirmSubscribe').addEventListener('click', () => {
+      document.getElementById('subscribePopup').style.display = 'none';
+      if (currentYoutubeUrl) {
+        window.open(currentYoutubeUrl, '_blank');
+      }
+    });
+
+    // Add a comment
+    document.getElementById('postComment').addEventListener('click', () => {
+      const commentInput = document.getElementById('commentInput');
+      if (commentInput.value.trim() === "" || !currentExperienceId) return;
+
+      push(ref(db, "experiences/" + currentExperienceId + "/comments"), {
+        text: commentInput.value,
+        author: "You",
+        timestamp: new Date().toISOString(),
+        replies: []
+      });
+
+      commentInput.value = "";
+    });
+
+    // Load comments for an experience
+    function loadComments(experienceId) {
+      const commentsRef = ref(db, "experiences/" + experienceId + "/comments");
+      onValue(commentsRef, (snapshot) => {
+        const commentsList = document.getElementById("commentsList");
+        commentsList.innerHTML = "";
+        
+        if (!snapshot.exists()) {
+          commentsList.innerHTML = '<p style="text-align: center; color: #666;">No comments yet. Be the first to comment!</p>';
+          return;
+        }
+        
+        snapshot.forEach((commentSnap) => {
+          const comment = commentSnap.val();
+          const commentId = commentSnap.key;
+          
+          const commentEl = document.createElement("div");
+          commentEl.classList.add("comment");
+          
+          // Format timestamp
+          const date = new Date(comment.timestamp);
+          const formattedDate = date.toLocaleDateString() + ' at ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          
+          commentEl.innerHTML = `
+            <div class="comment-header">
+              <span class="comment-author">${comment.author || "Anonymous"}</span>
+              <span class="comment-time">${formattedDate}</span>
+            </div>
+            <div class="comment-text">${comment.text}</div>
+            <div class="comment-actions">
+              <button class="comment-action like-comment">
+                <i class="far fa-thumbs-up"></i> Like
+              </button>
+              <button class="comment-action reply-btn" data-comment-id="${commentId}">
+                <i class="far fa-comment"></i> Reply
+              </button>
+            </div>
+            <div class="reply-section" id="replies-${commentId}"></div>
+          `;
+          
+          commentsList.appendChild(commentEl);
+          
+          // Add event listener for reply button
+          commentEl.querySelector('.reply-btn').addEventListener('click', (e) => {
+            const replySection = document.getElementById(`replies-${commentId}`);
+            if (replySection.querySelector('.reply-input')) return;
+            
+            const replyInput = document.createElement("div");
+            replyInput.classList.add("reply-input");
+            replyInput.innerHTML = `
+              <input type="text" placeholder="Write a reply...">
+              <button class="post-reply">Post</button>
+            `;
+            
+            replySection.appendChild(replyInput);
+            
+            // Add event listener for posting reply
+            replyInput.querySelector('.post-reply').addEventListener('click', () => {
+              const replyText = replyInput.querySelector('input').value;
+              if (replyText.trim() === "") return;
+              
+              push(ref(db, `experiences/${experienceId}/comments/${commentId}/replies`), {
+                text: replyText,
+                author: "You",
+                timestamp: new Date().toISOString()
+              });
+              
+              replyInput.remove();
+            });
+          });
+          
+          // Load replies if they exist
+          if (comment.replies) {
+            Object.values(comment.replies).forEach(reply => {
+              const replyEl = document.createElement("div");
+              replyEl.classList.add("reply");
+              
+              const replyDate = new Date(reply.timestamp);
+              const formattedReplyDate = replyDate.toLocaleDateString() + ' at ' + replyDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+              
+              replyEl.innerHTML = `
+                <div class="comment-header">
+                  <span class="comment-author">${reply.author || "Anonymous"}</span>
+                  <span class="comment-time">${formattedReplyDate}</span>
+                </div>
+                <div class="comment-text">${reply.text}</div>
+              `;
+              
+              document.getElementById(`replies-${commentId}`).appendChild(replyEl);
+            });
+          }
+        });
+      });
+    }
+
+    // Display sample experiences if no data in Firebase
+    function displaySampleExperiences() {
+      const sampleExperiences = [
+        {
+          title: "From Small Farm to Export Business",
+          description: "How a small-scale farmer transformed his operation into a successful export business.",
+          imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+          videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          youtubeUrl: "https://www.youtube.com/@candle-o1p",
+          duration: "4:15",
+          date: "May 15, 2023",
+          views: "1.2K",
+          likes: 24,
+          farmerName: "John Kamau",
+          location: "Nakuru County"
+        },
+        {
+          title: "Overcoming Drought with Smart Irrigation",
+          description: "A farmer's journey to sustainable farming despite water challenges.",
+          imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+          videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          youtubeUrl: "https://www.youtube.com/@candle-o1p",
+          duration: "3:45",
+          date: "May 10, 2023",
+          views: "980",
+          likes: 18,
+          farmerName: "Mary Wanjiku",
+          location: "Kitui County"
+        },
+        {
+          title: "Organic Farming Success Story",
+          description: "Transitioning to organic methods increased yields and market value.",
+          imageUrl: "https://images.unsplash.com/photo-1621330396175-af1a02c47c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+          videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          youtubeUrl: "https://www.youtube.com/@candle-o1p",
+          duration: "5:20",
+          date: "May 5, 2023",
+          views: "1.5K",
+          likes: 32,
+          farmerName: "David Ochieng",
+          location: "Kisumu County"
+        }
+      ];
+      
+      sampleExperiences.forEach((experience, index) => {
+        createExperienceCard(experience, `sample-${index}`);
+      });
+    }
+
+    // Initialize the page
+    renderExperiences();
+  </script>
+</body>
+</html>

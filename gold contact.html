@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Kenyan Gold Program</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #FFD700;
+      color: #000;
+      padding: 20px 0;
+      text-align: center;
+    }
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h1, h3 {
+      color: #B8860B;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 10px 0 5px;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #B8860B;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #8B6508;
+    }
+    a.youtube-link {
+      color: #B8860B;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    a.youtube-link img {
+      width: 24px;
+      height: 24px;
+    }
+    a.youtube-link:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #FFD700;
+      color: #000;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+    <p>Kenyan Gold Program | Powered by Citizens TV</p>
+  </header>
+  <main>
+    <form action="mailto:info@kenyangold.co.ke" method="post" enctype="text/plain">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <h3>Other Ways to Reach Us</h3>
+    <p>Email: info@kenyangold.co.ke</p>
+    <p>Phone: +254 700 000 000</p>
+    <p>Address: Citizens TV Headquarters, Nairobi, Kenya</p>
+
+    <h3>Subscribe to Our YouTube Channel</h3>
+    <p>
+      <a href="https://www.youtube.com/@candle-o1p" target="_blank" class="youtube-link">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube Logo">
+        @candle-o1p
+      </a>
+    </p>
+  </main>
+  <footer>
+    &copy; 2025 Kenyan Gold Program | Powered by Citizens TV
+  </footer>
+</body>
+</html>

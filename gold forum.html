@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmers Forum | Professional Agriculture Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-dark: #1b4332;
+      --primary-light: #40916c;
+      --secondary: #d4a017;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --success: #28a745;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(to right, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo-icon {
+      font-size: 32px;
+      color: var(--secondary);
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo h1 {
+      font-size: 28px;
+      color: var(--light);
+      margin: 0;
+    }
+    
+    .logo p {
+      font-size: 14px;
+      color: var(--light-gray);
+      margin: 0;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(45, 106, 79, 0.8), rgba(27, 67, 50, 0.8)), 
+                  url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 60px 0;
+      text-align: center;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: var(--light);
+    }
+    
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: var(--light);
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .stat-item {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px 25px;
+      border-radius: 8px;
+      color: var(--light);
+    }
+    
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+    }
+    
+    /* New Thread Section */
+    .new-thread-section {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 0;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    
+    .new-thread-header {
+      background: var(--primary);
+      color: var(--light);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .new-thread-header h2 {
+      font-size: 20px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 20px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    
+    .toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .new-thread-content {
+      padding: 20px;
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid var(--light-gray);
+      font-family: inherit;
+      font-size: 16px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.2);
+    }
+    
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .file-upload {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      background: var(--light-gray);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .file-upload-label:hover {
+      background: #dde2e6;
+    }
+    
+    .file-upload input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    .progress-container {
+      margin: 15px 0;
+      background: var(--light-gray);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 20px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, var(--primary-light), var(--primary));
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: var(--secondary);
+    }
+    
+    .btn-secondary:hover {
+      background: #b8860b;
+    }
+    
+    /* Forum Threads */
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .section-title i {
+      color: var(--primary);
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    
+    .section-title h2 {
+      font-size: 24px;
+      color: var(--dark);
+    }
+    
+    .threads-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .thread-card {
+      background: var(--light);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .thread-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .thread-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--light-gray);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .thread-title {
+      font-size: 18px;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+    
+    .thread-date {
+      font-size: 14px;
+      color: var(--gray);
+    }
+    
+    .thread-content {
+      padding: 20px;
+    }
+    
+    .thread-text {
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+    
+    .thread-image {
+      margin-top: 15px;
+      text-align: center;
+    }
+    
+    .thread-image img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .thread-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    .action-btn:hover {
+      background: var(--light-gray);
+      color: var(--dark);
+    }
+    
+    .comments-section {
+      background: var(--light-gray);
+      padding: 15px 20px;
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .comments-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .comments-list {
+      margin-bottom: 15px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .comment {
+      background: var(--light);
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .comment-text {
+      margin-bottom: 5px;
+    }
+    
+    .comment-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    .comment-input {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .comment-input input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid var(--light-gray);
+    }
+    
+    .comment-input button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .comment-input button:hover {
+      background: var(--primary-dark);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      padding: 40px 0 20px;
+      margin-top: 50px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      color: var(--light);
+      margin-bottom: 20px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-links a {
+      color: var(--light);
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--light-gray);
+      font-size: 14px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-links {
+        gap: 15px;
+      }
+      
+      .hero h2 {
+        font-size: 28px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+      
+      .stats {
+        flex-wrap: wrap;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-tractor"></i>
+          </div>
+          <div class="logo-text">
+            <h1>FARMERS FORUM</h1>
+            <p>Professional Agriculture Community</p>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#"><i class="fas fa-home"></i> Home</a>
+          
+          <a href="gold farm.html"><i class="fas fa-play-circle"></i> TESTIMONIES FROM  FARMERS</a>
+          <a href="gold market.html"><i class="fas fa-shopping-basket"></i> Products & markets connect</a>
+          <a href="ai 2.html"><i class="fas fa-robot"></i> Experts & AI Assistant</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h2>Connect, Share & Grow Together</h2>
+      <p>Join Kenya's largest community of farmers, agricultural experts, and agribusiness professionals. Share knowledge, ask questions, and showcase your products.</p>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">5,280+</div>
+          <div class="stat-label">Active Farmers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12,450+</div>
+          <div class="stat-label">Discussions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">320+</div>
+          <div class="stat-label">Experts Online</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- New Thread Section -->
+    <section class="new-thread-section">
+      <div class="new-thread-header" onclick="toggleThreadBox()">
+        <h2><i class="fas fa-pen"></i> Start a New Discussion</h2>
+        <button class="toggle-btn" id="toggleBtn">−</button>
+      </div>
+      <div class="new-thread-content" id="threadContent">
+        <div class="form-group">
+          <label for="title">Discussion Title</label>
+          <input type="text" id="title" class="form-control" placeholder="Enter a clear title for your discussion">
+        </div>
+        <div class="form-group">
+          <label for="content">Discussion Content</label>
+          <textarea id="content" class="form-control" placeholder="Describe your question, idea, or topic in detail..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Add Image (Optional)</label>
+          <div class="file-upload">
+            <label class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span id="fileLabel">Choose an image file</span>
+            </label>
+            <input type="file" id="imageInput" accept="image/*">
+          </div>
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="progress-container">
+          <div id="progressBar" class="progress-bar">0%</div>
+        </div>
+        
+        <button class="btn" onclick="postThread()"><i class="fas fa-paper-plane"></i> Post Discussion</button>
+      </div>
+    </section>
+
+    <!-- Forum Threads -->
+    <section>
+      <div class="section-title">
+        <i class="fas fa-comments"></i>
+        <h2>Recent Discussions</h2>
+      </div>
+
+      <div class="threads-container" id="forum-container">
+        <!-- Threads will be dynamically loaded here -->
+        
+        <!-- Sample Thread 1 -->
+        <div class="thread-card">
+          <div class="thread-header">
+            <h3 class="thread-title">Best practices for maize farming in dry seasons</h3>
+            <div class="thread-date">Posted 2 hours ago</div>
+          </div>
+          <div class="thread-content">
+            <div class="thread-text">
+              <p>With the changing climate patterns, I'm looking for advice on how to optimize maize yields during dry seasons. What irrigation techniques, drought-resistant varieties, and soil management practices have worked for you?</p>
+            </div>
+            <div class="thread-actions">
+              <button class="action-btn"><i class="fas fa-thumbs-up"></i> Helpful (24)</button>
+              <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+              <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+            </div>
+          </div>
+          <div class="comments-section">
+            <h4 class="comments-title"><i class="fas fa-comments"></i> 5 Comments</h4>
+            <div class="comments-list">
+              <div class="comment">
+                <div class="comment-text">I've had success with drip irrigation and the DK 8031 variety. Water usage reduced by 40% with similar yields.</div>
+                <div class="comment-meta">
+                  <span>John K.</span>
+                  <span>1 hour ago</span>
+                </div>
+              </div>
+              <div class="comment">
+                <div class="comment-text">Mulching with dry grass has helped retain soil moisture on my farm in Machakos.</div>
+                <div class="comment-meta">
+                  <span>Mary W.</span>
+                  <span>45 minutes ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="comment-input">
+              <input type="text" placeholder="Write a comment...">
+              <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sample Thread 2 -->
+        <div class="thread-card">
+          <div class="thread-header">
+            <h3 class="thread-title">Organic pest control for tomato farming</h3>
+            <div class="thread-date">Posted 1 day ago</div>
+          </div>
+          <div class="thread-content">
+            <div class="thread-text">
+              <p>I'm transitioning to organic farming and looking for effective, natural ways to control common tomato pests like aphids and whiteflies. What homemade sprays or companion planting strategies have worked for you?</p>
+            </div>
+            <div class="thread-image">
+              <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Tomato plants">
+            </div>
+            <div class="thread-actions">
+              <button class="action-btn"><i class="fas fa-thumbs-up"></i> Helpful (18)</button>
+              <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+              <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+            </div>
+          </div>
+          <div class="comments-section">
+            <h4 class="comments-title"><i class="fas fa-comments"></i> 7 Comments</h4>
+            <div class="comments-list">
+              <div class="comment">
+                <div class="comment-text">Neem oil spray works wonders! Mix 2 tablespoons of neem oil with a gallon of water and a few drops of dish soap.</div>
+                <div class="comment-meta">
+                  <span>David M.</span>
+                  <span>20 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="comment-input">
+              <input type="text" placeholder="Write a comment...">
+              <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Farmers Forum</h3>
+          <p>Kenya's premier digital platform connecting farmers, experts, and agribusiness professionals to share knowledge and grow together.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-comments"></i> Forum</a></li>
+            <li><a href="#"><i class="fas fa-play-circle"></i> Video Clips</a></li>
+            <li><a href="#"><i class="fas fa-shopping-basket"></i> Market Place</a></li>
+            <li><a href="#"><i class="fas fa-robot"></i> AI Assistant</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-book"></i> Farming Guides</a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> Seasonal Calendar</a></li>
+            <li><a href="#"><i class="fas fa-tags"></i> Price Updates</a></li>
+            <li><a href="#"><i class="fas fa-newspaper"></i> Agriculture News</a></li>
+            <li><a href="#"><i class="fas fa-hands-helping"></i> Expert Directory</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Farmers Forum | Professional Agriculture Community. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+      authDomain: "manuu-59b30.firebaseapp.com",
+      databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+      projectId: "manuu-59b30",
+      storageBucket: "manuu-59b30.firebasestorage.app",
+      messagingSenderId: "872309397811",
+      appId: "1:872309397811:web:ebe13952c02b7394954646",
+      measurementId: "G-Z33JK3J3FM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const forumContainer = document.getElementById("forum-container");
+
+    const imgbbAPI = "856921ff2f38a58ad9138a0c66a976bd"; // Replace with your ImgBB API key
+
+    // File input label update
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+      const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose an image file';
+      document.getElementById('fileLabel').textContent = fileName;
+    });
+
+    // Upload new thread
+    async function postThread() {
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const fileInput = document.getElementById("imageInput").files[0];
+      const progressBar = document.getElementById("progressBar");
+
+      if (!title || !content) {
+        alert("Please enter both title and content.");
+        return;
+      }
+
+      let imageUrl = "";
+      if (fileInput) {
+        const formData = new FormData();
+        formData.append("image", fileInput);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", `https://api.imgbb.com/1/upload?key=${imgbbAPI}`, true);
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            progressBar.style.width = percent + "%";
+            progressBar.innerText = percent + "%";
+          }
+        };
+
+        const uploadPromise = new Promise((resolve, reject) => {
+          xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            if (data.success) {
+              resolve(data.data.url);
+            } else {
+              reject("Image upload failed");
+            }
+          };
+          xhr.onerror = () => reject("Network error during upload");
+        });
+
+        xhr.send(formData);
+        try {
+          imageUrl = await uploadPromise;
+        } catch (err) {
+          alert(err);
+        }
+      }
+
+      push(ref(db, "forumThreads"), {
+        title,
+        content,
+        imageUrl,
+        date: new Date().toLocaleString()
+      });
+
+      document.getElementById("title").value = "";
+      document.getElementById("content").value = "";
+      document.getElementById("imageInput").value = "";
+      document.getElementById('fileLabel').textContent = 'Choose an image file';
+      progressBar.style.width = "0%";
+      progressBar.innerText = "0%";
+      
+      // Show success message
+      alert("Your discussion has been posted successfully!");
+    }
+
+    // Post comment
+    window.postComment = function(threadId) {
+      const input = document.getElementById(`comment-${threadId}`);
+      const commentText = input.value.trim();
+      if (!commentText) return;
+
+      push(ref(db, `comments/${threadId}`), {
+        text: commentText,
+        date: new Date().toLocaleString(),
+        user: "Current User"
+      });
+
+      input.value = "";
+    };
+
+    // Load threads + comments
+    onValue(ref(db, "forumThreads"), (snapshot) => {
+      forumContainer.innerHTML = "";
+      snapshot.forEach((child) => {
+        const threadId = child.key;
+        const thread = child.val();
+
+        const threadDiv = document.createElement("div");
+        threadDiv.classList.add("thread-card");
+        threadDiv.innerHTML = `
+          <div class="thread-header">
+            <h3 class="thread-title">${thread.title}</h3>
+            <div class="thread-date">${thread.date}</div>
+          </div>
+          <div class="thread-content">
+            <div class="thread-text">
+              <p>${thread.content}</p>
+            </div>
+            ${thread.imageUrl ? `
+            <div class="thread-image">
+              <img src="${thread.imageUrl}" alt="Thread Image">
+            </div>
+            ` : ""}
+            <div class="thread-actions">
+              <button class="action-btn"><i class="fas fa-thumbs-up"></i> Helpful (0)</button>
+              <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+              <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+            </div>
+          </div>
+          <div class="comments-section">
+            <h4 class="comments-title"><i class="fas fa-comments"></i> Comments</h4>
+            <div class="comments-list" id="comments-${threadId}"></div>
+            <div class="comment-input">
+              <input type="text" id="comment-${threadId}" placeholder="Write a comment...">
+              <button onclick="postComment('${threadId}')"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        `;
+
+        forumContainer.prepend(threadDiv);
+
+        // Load comments
+        onValue(ref(db, `comments/${threadId}`), (commentSnap) => {
+          const commentsList = document.getElementById(`comments-${threadId}`);
+          commentsList.innerHTML = "";
+          commentSnap.forEach((commentChild) => {
+            const comment = commentChild.val();
+            const cDiv = document.createElement("div");
+            cDiv.classList.add("comment");
+            cDiv.innerHTML = `
+              <div class="comment-text">${comment.text}</div>
+              <div class="comment-meta">
+                <span>${comment.user || "Anonymous"}</span>
+                <span>${comment.date}</span>
+              </div>
+            `;
+            commentsList.appendChild(cDiv);
+          });
+        });
+      });
+    });
+
+    // Toggle Discussion Box
+    window.toggleThreadBox = function () {
+      const content = document.getElementById("threadContent");
+      const btn = document.getElementById("toggleBtn");
+      if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.textContent = "−";
+      } else {
+        content.style.display = "none";
+        btn.textContent = "+";
+      }
+    };
+
+    window.postThread = postThread;
+  </script>
+</body>
+</html>

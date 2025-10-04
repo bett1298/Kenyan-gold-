@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Clip</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    button {
+      cursor: pointer;
+      background: #28a745;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .progress-container {
+      margin: 10px 0;
+      background: #eee;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 20px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: #28a745;
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      transition: width 0.3s;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Upload New Clip</h2>
+    <input type="text" id="title" placeholder="Clip Title">
+    <textarea id="description" placeholder="Clip Description"></textarea>
+    
+    <label>🎬 Select Video</label>
+    <input type="file" id="videoFile" accept="video/*">
+    <div class="progress-container"><div id="videoProgress" class="progress-bar">0%</div></div>
+
+    <label>🖼 Select Thumbnail Image</label>
+    <input type="file" id="imageFile" accept="image/*">
+    <div class="progress-container"><div id="imageProgress" class="progress-bar">0%</div></div>
+
+    <button onclick="uploadClip()">Upload</button>
+    <p id="status"></p>
+  </div>
+
+  <!-- Firebase & Upload Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+      authDomain: "manuu-59b30.firebaseapp.com",
+      databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+      projectId: "manuu-59b30",
+      storageBucket: "manuu-59b30.firebasestorage.app",
+      messagingSenderId: "872309397811",
+      appId: "1:872309397811:web:ebe13952c02b7394954646",
+      measurementId: "G-Z33JK3J3FM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Cloudinary settings
+    const cloudName = "dumtuzdl9";  
+    const uploadPreset = "Bettke254"; 
+
+    // ImgBB API key (replace with your own)
+    const imgbbAPIKey = "856921ff2f38a58ad9138a0c66a976bd";
+
+    window.uploadClip = async function () {
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const videoFile = document.getElementById("videoFile").files[0];
+      const imageFile = document.getElementById("imageFile").files[0];
+      const status = document.getElementById("status");
+      const videoProgress = document.getElementById("videoProgress");
+      const imageProgress = document.getElementById("imageProgress");
+
+      if (!videoFile || !imageFile || !title || !description) {
+        status.innerText = "⚠ Please fill all fields and select both files.";
+        return;
+      }
+
+      status.innerText = "Uploading files...";
+
+      // 1️⃣ Upload video to Cloudinary
+      const videoPromise = new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("file", videoFile);
+        formData.append("upload_preset", uploadPreset);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`, true);
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            videoProgress.style.width = percent + "%";
+            videoProgress.innerText = percent + "%";
+          }
+        };
+
+        xhr.onload = () => {
+          const data = JSON.parse(xhr.responseText);
+          if (data.secure_url) resolve(data.secure_url);
+          else reject(data.error?.message || "Video upload failed");
+        };
+
+        xhr.onerror = () => reject("Network error uploading video");
+        xhr.send(formData);
+      });
+
+      // 2️⃣ Upload image to ImgBB
+      const imagePromise = new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append("image", imageFile);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", `https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, true);
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            imageProgress.style.width = percent + "%";
+            imageProgress.innerText = percent + "%";
+          }
+        };
+
+        xhr.onload = () => {
+          const data = JSON.parse(xhr.responseText);
+          if (data.success) resolve(data.data.url);
+          else reject(data.error?.message || "Image upload failed");
+        };
+
+        xhr.onerror = () => reject("Network error uploading image");
+        xhr.send(formData);
+      });
+
+      try {
+        const [videoUrl, imageUrl] = await Promise.all([videoPromise, imagePromise]);
+
+        await push(ref(db, "clips"), {
+          title,
+          description,
+          videoUrl,
+          imageUrl,
+          likes: 0
+        });
+
+        status.innerText = "✅ Upload successful!";
+        videoProgress.style.background = "#28a745";
+        imageProgress.style.background = "#28a745";
+      } catch (err) {
+        status.innerText = "❌ Error: " + err;
+      }
+    };
+  </script>
+</body>
+</html>

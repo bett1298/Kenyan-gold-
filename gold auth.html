@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenyan Gold Community - Login / Sign Up</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 {
+      color: #B8860B;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #B8860B;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #8B6508;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #B8860B;
+      cursor: pointer;
+      margin-top: 15px;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+    p.error {
+      color: red;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 id="formTitle">Login to Kenyan Gold Community</h2>
+  <form id="authForm">
+    <div id="nameField" style="display:none;">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name">
+    </div>
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter your password" required>
+
+    <button type="submit" id="submitBtn">Login</button>
+  </form>
+  <button class="toggle-btn" id="toggleBtn">Don't have an account? Sign Up</button>
+  <p class="error" id="errorMsg"></p>
+</div>
+
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+    authDomain: "manuu-59b30.firebaseapp.com",
+    databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+    projectId: "manuu-59b30",
+    storageBucket: "manuu-59b30.firebasestorage.app",
+    messagingSenderId: "872309397811",
+    appId: "1:872309397811:web:ebe13952c02b7394954646",
+    measurementId: "G-Z33JK3J3FM"
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  let isLogin = true; // toggle state
+
+  const authForm = document.getElementById('authForm');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const formTitle = document.getElementById('formTitle');
+  const submitBtn = document.getElementById('submitBtn');
+  const nameField = document.getElementById('nameField');
+  const errorMsg = document.getElementById('errorMsg');
+
+  toggleBtn.addEventListener('click', () => {
+    isLogin = !isLogin;
+    if (isLogin) {
+      formTitle.innerText = "Login to Kenyan Gold Community";
+      submitBtn.innerText = "Login";
+      nameField.style.display = "none";
+      toggleBtn.innerText = "Don't have an account? Sign Up";
+    } else {
+      formTitle.innerText = "Sign Up to Kenyan Gold Community";
+      submitBtn.innerText = "Sign Up";
+      nameField.style.display = "block";
+      toggleBtn.innerText = "Already have an account? Login";
+    }
+    errorMsg.innerText = "";
+  });
+
+  authForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    errorMsg.innerText = "";
+
+    if (isLogin) {
+      // Login user
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Login successful! Welcome " + (userCredential.user.displayName || email));
+          window.location.href = "gold forum.html";
+        })
+        .catch(error => {
+          errorMsg.innerText = error.message;
+        });
+    } else {
+      // Sign up user
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          // Update display name
+          if(name) {
+            userCredential.user.updateProfile({ displayName: name });
+          }
+          alert("Sign-up successful! You can now login.");
+          isLogin = true;
+          toggleBtn.click(); // switch to login
+        })
+        .catch(error => {
+          errorMsg.innerText = error.message;
+        });
+    }
+  });
+</script>
+
+</body>
+</html>

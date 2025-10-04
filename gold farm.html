@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenyan Gold Program | Citizen TV</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #C5A028; /* Gold color */
+      --primary-dark: #A0821F;
+      --secondary: #1E3A8A; /* Dark blue */
+      --dark: #121212;
+      --light: #F8F8F8;
+      --gray: #E5E5E5;
+      --text: #333333;
+      --text-light: #666666;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: var(--light);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(to right, var(--secondary) 0%, var(--dark) 100%);
+      padding: 15px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo img {
+      height: 50px;
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo h1 {
+      font-size: 24px;
+      color: var(--light);
+      margin: 0;
+    }
+    
+    .logo p {
+      font-size: 14px;
+      color: var(--primary);
+      margin: 0;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 60px 0;
+      text-align: center;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 25px;
+    }
+    
+    .cta-button {
+      background: var(--primary);
+      color: var(--dark);
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .cta-button:hover {
+      background: var(--primary-dark);
+    }
+    
+    /* Clips Section */
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .section-title i {
+      color: var(--primary);
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    
+    .section-title h2 {
+      font-size: 24px;
+      color: var(--light);
+    }
+    
+    .clips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .clip-card {
+      background: #2A2A2A;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .clip-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .clip-thumbnail {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .clip-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .clip-card:hover .clip-thumbnail img {
+      transform: scale(1.05);
+    }
+    
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .clip-card:hover .play-overlay {
+      opacity: 1;
+    }
+    
+    .play-button {
+      background: var(--primary);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--dark);
+      font-size: 24px;
+    }
+    
+    .clip-content {
+      padding: 20px;
+    }
+    
+    .clip-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--light);
+    }
+    
+    .clip-description {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    
+    .clip-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .clip-date {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    
+    .clip-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--light);
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .like-btn.active {
+      color: #FF4D4D;
+    }
+    
+    .full-btn {
+      background: var(--primary);
+      color: var(--dark);
+    }
+    
+    .full-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    /* Comment Section */
+    .comment-section {
+      margin-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+    }
+    
+    .comment-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .comment-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+    }
+    
+    .comment-input input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .comment-input button {
+      background: var(--primary);
+      color: var(--dark);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .comments-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .comment {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .comment-text {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    
+    .comment-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    
+    .reply-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
+    /* Subscribe Popup */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .popup-content {
+      background: #2A2A2A;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .popup-icon {
+      font-size: 50px;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .popup-content h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: var(--light);
+    }
+    
+    .popup-content p {
+      margin-bottom: 25px;
+      color: var(--text-light);
+    }
+    
+    .subscribe-btn {
+      background: #FF0000;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    
+    .confirm-btn {
+      background: var(--primary);
+      color: var(--dark);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      padding: 30px 0;
+      margin-top: 50px;
+      border-top: 2px solid var(--primary);
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-links a {
+      color: var(--light);
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--primary);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      font-size: 14px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-links {
+        gap: 15px;
+      }
+      
+      .hero h2 {
+        font-size: 28px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+      
+      .clips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-text">
+            <h1>KENYAN GOLD</h1>
+            <p>CITIZEN TV PROGRAM</p>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Episodes</a>
+          <a href="#">Clips</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h2>Kenyan Gold Program Highlights</h2>
+      <p>Watch exclusive clips and highlights from the popular Kenyan Gold program on Citizen TV. Stay updated with the latest episodes and behind-the-scenes content.</p>
+      <button class="cta-button">Watch Latest Episode</button>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <div class="section-title">
+      <i class="fas fa-play-circle"></i>
+      <h2>Recent Clips</h2>
+    </div>
+
+    <!-- Clips Grid -->
+    <div class="clips-grid" id="clipsList">
+      <!-- Clips will be dynamically loaded here -->
+    </div>
+  </main>
+
+  <!-- Subscribe Popup -->
+  <div class="popup-overlay" id="subscribePopup">
+    <div class="popup-content">
+      <div class="popup-icon">
+        <i class="fab fa-youtube"></i>
+      </div>
+      <h3>Subscribe to Watch Full Clips</h3>
+      <p>Please subscribe to our YouTube channel to access the full content and stay updated with the latest episodes.</p>
+      <a href="https://www.youtube.com/@candle-o1p" target="_blank" class="subscribe-btn">
+        <i class="fab fa-youtube"></i> Subscribe Now
+      </a>
+      <br>
+      <button class="confirm-btn" id="confirmSubscribe">I've Subscribed</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Kenyan Gold</h3>
+          <p>Kenyan Gold is a popular program on Citizen TV that showcases success stories, business insights, and entrepreneurial journeys from across Kenya.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Episodes</a></li>
+            <li><a href="#">Clips</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Kenyan Gold Program - Citizen TV. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getDatabase, ref, onValue, update, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+      authDomain: "manuu-59b30.firebaseapp.com",
+      databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+      projectId: "manuu-59b30",
+      storageBucket: "manuu-59b30.firebasestorage.app",
+      messagingSenderId: "872309397811",
+      appId: "1:872309397811:web:ebe13952c02b7394954646",
+      measurementId: "G-Z33JK3J3FM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const clipsRef = ref(db, "clips");
+
+    let currentClipUrl = null;
+
+    function renderClips() {
+      onValue(clipsRef, (snapshot) => {
+        const clipsList = document.getElementById("clipsList");
+        clipsList.innerHTML = "";
+
+        snapshot.forEach((clipSnap) => {
+          const clip = clipSnap.val();
+          const clipId = clipSnap.key;
+
+          const clipCard = document.createElement("div");
+          clipCard.classList.add("clip-card");
+
+          clipCard.innerHTML = `
+            <div class="clip-thumbnail">
+              <img src="${clip.imageUrl}" alt="${clip.title}">
+              <div class="play-overlay">
+                <div class="play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="clip-content">
+              <h3 class="clip-title">${clip.title}</h3>
+              <p class="clip-description">${clip.description}</p>
+              <div class="clip-meta">
+                <span class="clip-date">${clip.date || "Recently added"}</span>
+                <div class="clip-actions">
+                  <button class="action-btn like-btn" onclick="likeClip('${clipId}', ${clip.likes || 0})">
+                    <i class="fas fa-thumbs-up"></i> ${clip.likes || 0}
+                  </button>
+                  <button class="action-btn full-btn" onclick="watchFullClip('${clip.youtubeUrl}')">
+                    <i class="fas fa-play-circle"></i> Full Clip
+                  </button>
+                </div>
+              </div>
+              <div class="comment-section">
+                <div class="comment-input">
+                  <input type="text" id="comment-${clipId}" placeholder="Write a comment...">
+                  <button onclick="addComment('${clipId}')">Post</button>
+                </div>
+                <div class="comments-list" id="comments-${clipId}"></div>
+              </div>
+            </div>
+          `;
+
+          clipsList.appendChild(clipCard);
+          loadComments(clipId);
+        });
+      });
+    }
+
+    // Like clip
+    window.likeClip = (clipId, currentLikes) => {
+      update(ref(db, "clips/" + clipId), { likes: currentLikes + 1 });
+    };
+
+    // Add comment
+    window.addComment = (clipId) => {
+      const input = document.getElementById(`comment-${clipId}`);
+      if (input.value.trim() === "") return;
+      push(ref(db, "clips/" + clipId + "/comments"), { 
+        text: input.value, 
+        timestamp: new Date().toISOString(),
+        user: "Anonymous User"
+      });
+      input.value = "";
+    };
+
+    // Load comments
+    function loadComments(clipId) {
+      const commentsRef = ref(db, "clips/" + clipId + "/comments");
+      onValue(commentsRef, (snapshot) => {
+        const commentsDiv = document.getElementById("comments-" + clipId);
+        commentsDiv.innerHTML = "";
+        
+        snapshot.forEach((commentSnap) => {
+          const comment = commentSnap.val();
+          const commentId = commentSnap.key;
+
+          const commentEl = document.createElement("div");
+          commentEl.classList.add("comment");
+          
+          // Format the timestamp
+          const date = new Date(comment.timestamp);
+          const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          
+          commentEl.innerHTML = `
+            <div class="comment-text">${comment.text}</div>
+            <div class="comment-meta">
+              <span>${comment.user}</span>
+              <span>${formattedDate}</span>
+            </div>
+          `;
+          
+          commentsDiv.appendChild(commentEl);
+        });
+      });
+    }
+
+    // Show popup before redirecting
+    window.watchFullClip = (url) => {
+      currentClipUrl = url;
+      document.getElementById("subscribePopup").style.display = "flex";
+    };
+
+    document.getElementById("confirmSubscribe").addEventListener("click", () => {
+      document.getElementById("subscribePopup").style.display = "none";
+      if (currentClipUrl) window.open(currentClipUrl, "_blank");
+    });
+
+    renderClips();
+  </script>
+</body>
+</html>
