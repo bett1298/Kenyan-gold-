@@ -1,10 +1,24 @@
-# ads.txt for bettke.space
+#Ads.txt bettke.space
+#Ads.txt managed by AdsTxtManager.com - the free ads.txt management tool for publishers
+ownerdomain=bettke.space
+contact=directsales@ezoic.com
+managerdomain=ezoic.ai
+
+ezoic.ai, db9f9bb377e403eb47eeccb1ebf5a661, DIRECT
+ezoic.ai, 42683b43bd662dab1c9997c50f3d7597, DIRECT
+ezoic.co.uk, 42683b43bd662dab1c9997c50f3d7597, DIRECT
+# 35
+themediagrid.com, Q19AKF, DIRECT, 35d5010d7789b49d
+sonobi.com, 192ecdea01, RESELLER, d1a215d9eb5aee9e
+google.com, pub-6644558441501035, DIRECT, f08c47fec0942fa0
+google.com, pub-1175987143200523, RESELLER, f08c47fec0942fa0
+risecodes.com, 608fee2f84a3a300011acd3f, DIRECT
+ssp.cadent.com, 45, DIRECT, 1e1d41537f7cad7f
+# 21202
+appnexus.com, 9402, DIRECT, f5ab79cb980f11d1
+ezoic.com, 79309, DIRECT, 8c5b402d2d7f7d90
 google.com, pub-4347535849525164, DIRECT, f08c47fec0942fa0
-ezoic.com, ACCOUNT ID
-79309, DIRECT, 8c5b402d2d7f7d90
 indexexchange.com, 193319, DIRECT
-rubiconproject.com, 22564, DIRECT, 0bfd66d529a55807
 openx.com, 537153344, DIRECT, 6a698e2ec38604c6
 pubmatic.com, 156423, DIRECT, 5d62403b186f2ace
-appnexus.com, 9402, DIRECT, f5ab79cb980f11d1
-https://srv.adstxtmanager.com/19390/bettke.space
+rubiconproject.com, 22564, DIRECT, 0bfd66d529a55807
