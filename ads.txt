@@ -2,7 +2,7 @@
 
 # 11201
 appnexus.com, 9402, DIRECT, f5ab79cb980f11d1
-ezoic.com, 79309, DIRECT, 8c5b402d2d7f7d90
+ezoic.com, 19390, DIRECT, 8c5b402d2d7f7d90
 google.com, pub-1175987143200523, RESELLER, f08c47fec0942fa0
 google.com, pub-4347535849525164, DIRECT, f08c47fec0942fa0
 indexexchange.com, 193319, DIRECT
