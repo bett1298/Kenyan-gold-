@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clips | Kenyan Gold - Citizen TV</title>
+  <style>
+    :root {
+      --citizen-red: #e41e26;
+      --citizen-dark: #333;
+      --gold: #d4af37;
+      --light-gold: #f5e8b0;
+      --dark-green: #2e5a1c;
+      --light-green: #4a7c2a;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #666;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light-gray);
+      color: var(--citizen-dark);
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      background: var(--citizen-red);
+      color: white;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-container img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-menu li {
+      margin-left: 1.5rem;
+    }
+    
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-menu a:hover {
+      color: var(--light-gold);
+    }
+    
+    /* Main Content */
+    .main-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .page-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--medium-gray);
+    }
+    
+    .page-title h1 {
+      font-size: 2rem;
+      color: var(--citizen-dark);
+      margin-right: 1rem;
+    }
+    
+    .page-title span {
+      color: var(--citizen-red);
+    }
+    
+    /* YouTube Subscription Banner */
+    .youtube-banner {
+      background: linear-gradient(to right, var(--citizen-red), #FF0000);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .youtube-banner-content {
+      display: flex;
+      align-items: center;
+    }
+    
+    .youtube-icon {
+      font-size: 2.5rem;
+      margin-right: 1rem;
+    }
+    
+    .youtube-text h3 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .youtube-text p {
+      opacity: 0.9;
+    }
+    
+    .subscribe-btn {
+      background: white;
+      color: #FF0000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    
+    .subscribe-btn:hover {
+      background: var(--light-gold);
+      transform: translateY(-2px);
+    }
+    
+    .subscribe-btn i {
+      margin-right: 0.5rem;
+    }
+    
+    /* Clips Grid */
+    .clips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .clip-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .clip-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .clip-thumbnail {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .clip-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .clip-card:hover .clip-thumbnail img {
+      transform: scale(1.05);
+    }
+    
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .clip-card:hover .play-overlay {
+      opacity: 1;
+    }
+    
+    .play-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--citizen-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    .clip-content {
+      padding: 1.5rem;
+    }
+    
+    .clip-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--citizen-dark);
+    }
+    
+    .clip-description {
+      color: var(--dark-gray);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .clip-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .like-btn {
+      background: var(--light-gray);
+      color: var(--dark-gray);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .like-btn:hover {
+      background: var(--citizen-red);
+      color: white;
+    }
+    
+    .like-btn i {
+      margin-right: 0.5rem;
+    }
+    
+    .watch-full-btn {
+      background: var(--gold);
+      color: var(--citizen-dark);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .watch-full-btn:hover {
+      background: var(--light-gold);
+      transform: translateY(-2px);
+    }
+    
+    .watch-full-btn i {
+      margin-right: 0.5rem;
+    }
+    
+    .comment-section {
+      margin-top: 1rem;
+      border-top: 1px solid var(--medium-gray);
+      padding-top: 1rem;
+    }
+    
+    .comment-input-container {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    
+    .comment-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--medium-gray);
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-family: inherit;
+    }
+    
+    .comment-input:focus {
+      border-color: var(--citizen-red);
+    }
+    
+    .comment-btn {
+      background: var(--citizen-red);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+    
+    .comment-btn:hover {
+      background: #b9151c;
+    }
+    
+    .comments-container {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .comment {
+      background: var(--light-gray);
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    
+    .reply-section {
+      margin-top: 0.5rem;
+      display: flex;
+    }
+    
+    .reply-input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--medium-gray);
+      border-radius: 15px 0 0 15px;
+      outline: none;
+      font-size: 0.85rem;
+    }
+    
+    .reply-btn {
+      background: var(--gold);
+      color: var(--citizen-dark);
+      border: none;
+      padding: 0 1rem;
+      border-radius: 0 15px 15px 0;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .replies {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+    
+    .reply {
+      background: white;
+      padding: 0.5rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      border-left: 3px solid var(--gold);
+    }
+    
+    /* Subscription Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .subscription-modal {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    
+    .modal-overlay.active .subscription-modal {
+      transform: translateY(0);
+    }
+    
+    .modal-icon {
+      font-size: 3rem;
+      color: #FF0000;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--citizen-dark);
+    }
+    
+    .modal-text {
+      margin-bottom: 1.5rem;
+      color: var(--dark-gray);
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .modal-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .modal-btn.primary {
+      background: #FF0000;
+      color: white;
+    }
+    
+    .modal-btn.primary:hover {
+      background: #cc0000;
+    }
+    
+    .modal-btn.secondary {
+      background: var(--light-gray);
+      color: var(--dark-gray);
+    }
+    
+    .modal-btn.secondary:hover {
+      background: var(--medium-gray);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--citizen-dark);
+      color: white;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+    
+    .footer-text {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+      }
+      
+      .nav-menu {
+        margin-top: 1rem;
+      }
+      
+      .nav-menu li {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+      
+      .youtube-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .youtube-banner-content {
+        margin-bottom: 1rem;
+      }
+      
+      .clips-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .clip-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .footer-logo {
+        margin-bottom: 1rem;
+      }
+      
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNTAiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNSwxMGgxNzB2MzBIMTVWMzBIMzVWMjBIMTVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQ1LDEwaDEwVjQwSDQ1VjI1SDM1VjE1SDQ1VjEwWiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik02NSwxMGgxMHYzMEg2NVYyNUg1NVYxNUg2NVYxMFoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODUsMTBoMTB2MzBIODVWMjVINzVWMTVIODVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEwNSwxMGgxMHYzMEgxMDVWMjVIMTA1VjE1SDEwNVYxMFoiLz48L3N2Zz4=" alt="Citizen TV Logo">
+        <div class="logo-text">Citizen TV</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="gold auth.html">community</a></li>
+        
+      </ul>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="page-title">
+      <h1>Kenyan Gold <span>Clips</span></h1>
+      <i class="fas fa-play-circle" style="color: var(--gold); font-size: 1.8rem;"></i>
+    </div>
+    
+    <!-- YouTube Subscription Banner -->
+    <div class="youtube-banner">
+      <div class="youtube-banner-content">
+        <div class="youtube-icon">
+          <i class="fab fa-youtube"></i>
+        </div>
+        <div class="youtube-text">
+          <h3>Watch Full Episodes on YouTube</h3>
+          <p>Subscribe to our channel for exclusive content and full episodes</p>
+        </div>
+      </div>
+      <a href="https://www.youtube.com/@candle-o1p/" target="_blank" class="subscribe-btn">
+        <i class="fab fa-youtube"></i> Subscribe Now
+      </a>
+    </div>
+    
+    <div class="clips-grid" id="clipsList">
+      <!-- Clips will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Subscription Modal -->
+  <div class="modal-overlay" id="subscriptionModal">
+    <div class="subscription-modal">
+      <div class="modal-icon">
+        <i class="fab fa-youtube"></i>
+      </div>
+      <h2 class="modal-title">Subscribe to Watch Full Video</h2>
+      <p class="modal-text">To watch the full video, please subscribe to our YouTube channel first. It's free and gives you access to all our exclusive content!</p>
+      <div class="modal-actions">
+        <a href="https://www.youtube.com/channel/YOUR_CHANNEL_ID?sub_confirmation=1" target="_blank" class="modal-btn primary">
+          <i class="fab fa-youtube"></i> Subscribe Now
+        </a>
+        <button class="modal-btn secondary" id="closeModal">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNTAiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNSwxMGgxNzB2MzBIMTVWMzBIMzVWMjBIMTVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQ1LDEwaDEwVjQwSDQ1VjI1SDM1VjE1SDQ1VjEwWiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik02NSwxMGgxMHYzMEg2NVYyNUg1NVYxNUg2NVYxMFoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODUsMTBoMTB2MzBIODVWMjVINzVWMTVIODVWMzBaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEwNSwxMGgxMHYzMEgxMDVWMjVIMTA1VjE1SDEwNVYxMFoiLz48L3N2Zz4=" alt="Citizen TV Logo">
+        <div>Kenyan Gold</div>
+      </div>
+      <div class="footer-text">
+        &copy; 2023 Kenyan Gold | Citizen TV. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getDatabase, ref, onValue, update, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUYnN3bOTPNHvKHdWwrlACOAnLCAgxiJI",
+      authDomain: "manuu-59b30.firebaseapp.com",
+      databaseURL: "https://manuu-59b30-default-rtdb.firebaseio.com/",
+      projectId: "manuu-59b30",
+      storageBucket: "manuu-59b30.firebasestorage.app",
+      messagingSenderId: "872309397811",
+      appId: "1:872309397811:web:ebe13952c02b7394954646",
+      measurementId: "G-Z33JK3J3FM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const clipsRef = ref(db, "clips");
+    const modal = document.getElementById('subscriptionModal');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    // Modal functionality
+    function openSubscriptionModal() {
+      modal.classList.add('active');
+    }
+
+    function closeSubscriptionModal() {
+      modal.classList.remove('active');
+    }
+
+    closeModalBtn.addEventListener('click', closeSubscriptionModal);
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeSubscriptionModal();
+      }
+    });
+
+    function renderClips() {
+      onValue(clipsRef, (snapshot) => {
+        const clipsList = document.getElementById("clipsList");
+        clipsList.innerHTML = "";
+
+        snapshot.forEach((clipSnap) => {
+          const clip = clipSnap.val();
+          const clipId = clipSnap.key;
+
+          const clipCard = document.createElement("div");
+          clipCard.classList.add("clip-card");
+
+          clipCard.innerHTML = `
+            <div class="clip-thumbnail">
+              <img src="${clip.imageUrl}" alt="Thumbnail">
+              <div class="play-overlay">
+                <div class="play-icon">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="clip-content">
+              <h3 class="clip-title">${clip.title}</h3>
+              <p class="clip-description">${clip.description}</p>
+              
+              <div class="clip-actions">
+                <button class="like-btn" onclick="likeClip('${clipId}', ${clip.likes || 0})">
+                  <i class="fas fa-thumbs-up"></i> Like (${clip.likes || 0})
+                </button>
+                <button class="watch-full-btn" onclick="watchFullVideo('${clip.youtubeUrl || 'https://www.youtube.com/channel/YOUR_CHANNEL_ID'}')">
+                  <i class="fas fa-external-link-alt"></i> Watch Full Video
+                </button>
+              </div>
+              
+              <div class="comment-section">
+                <div class="comment-input-container">
+                  <input type="text" class="comment-input" id="comment-${clipId}" placeholder="Write a comment...">
+                  <button class="comment-btn" onclick="addComment('${clipId}')">Post</button>
+                </div>
+                <div class="comments-container" id="comments-${clipId}"></div>
+              </div>
+            </div>
+          `;
+
+          clipsList.appendChild(clipCard);
+
+          // Load comments
+          loadComments(clipId);
+        });
+      });
+    }
+
+    // Watch full video function
+    window.watchFullVideo = function(youtubeUrl) {
+      // Show subscription modal first
+      openSubscriptionModal();
+      
+      // Store the YouTube URL for later redirection
+      window.pendingYoutubeRedirect = youtubeUrl;
+    };
+
+    // Like a clip
+    window.likeClip = function (clipId, currentLikes) {
+      update(ref(db, "clips/" + clipId), {
+        likes: currentLikes + 1
+      });
+    };
+
+    // Add a comment
+    window.addComment = function (clipId) {
+      const input = document.getElementById(`comment-${clipId}`);
+      if (input.value.trim() === "") return;
+
+      push(ref(db, "clips/" + clipId + "/comments"), {
+        text: input.value,
+        replies: []
+      });
+
+      input.value = "";
+    };
+
+    // Load comments
+    function loadComments(clipId) {
+      const commentsRef = ref(db, "clips/" + clipId + "/comments");
+      onValue(commentsRef, (snapshot) => {
+        const commentsDiv = document.getElementById("comments-" + clipId);
+        commentsDiv.innerHTML = "";
+        snapshot.forEach((commentSnap) => {
+          const comment = commentSnap.val();
+          const commentId = commentSnap.key;
+
+          const commentDiv = document.createElement("div");
+          commentDiv.classList.add("comment");
+          commentDiv.innerHTML = `
+            ${comment.text}
+            <div class="reply-section">
+              <input type="text" class="reply-input" id="reply-${clipId}-${commentId}" placeholder="Reply...">
+              <button class="reply-btn" onclick="addReply('${clipId}', '${commentId}')">Reply</button>
+            </div>
+            <div class="replies" id="replies-${clipId}-${commentId}"></div>
+          `;
+          commentsDiv.appendChild(commentDiv);
+
+          // Load replies
+          if (comment.replies) {
+            Object.values(comment.replies).forEach(reply => {
+              const replyDiv = document.createElement("div");
+              replyDiv.classList.add("reply");
+              replyDiv.innerText = reply;
+              commentDiv.querySelector(`#replies-${clipId}-${commentId}`).appendChild(replyDiv);
+            });
+          }
+        });
+      });
+    }
+
+    // Add reply
+    window.addReply = function (clipId, commentId) {
+      const input = document.getElementById(`reply-${clipId}-${commentId}`);
+      if (input.value.trim() === "") return;
+
+      const repliesRef = ref(db, `clips/${clipId}/comments/${commentId}/replies`);
+      push(repliesRef, input.value);
+
+      input.value = "";
+    };
+
+    renderClips();
+  </script>
+</body>
+</html>
