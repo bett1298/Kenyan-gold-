@@ -1,1 +1,10 @@
+# ads.txt for bettke.space
 google.com, pub-4347535849525164, DIRECT, f08c47fec0942fa0
+ezoic.com, ACCOUNT ID
+79309, DIRECT, 8c5b402d2d7f7d90
+indexexchange.com, 193319, DIRECT
+rubiconproject.com, 22564, DIRECT, 0bfd66d529a55807
+openx.com, 537153344, DIRECT, 6a698e2ec38604c6
+pubmatic.com, 156423, DIRECT, 5d62403b186f2ace
+appnexus.com, 9402, DIRECT, f5ab79cb980f11d1
+https://srv.adstxtmanager.com/19390/bettke.space
