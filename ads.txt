@@ -1,2 +1,2 @@
 #Ads.txt managed by AdsTxtManager.com
-redirect=https://srv.adstxtmanager.com/19390/bettke.space
+redirect=https://srv.adstxtmanager.com/79363/bettke.space
