@@ -1,2 +1,2 @@
-#Ads.txt managed by AdsTxtManager.com
-redirect=https://srv.adstxtmanager.com/79363/bettke.space
+google.com, pub-4347535849525164, DIRECT, f08c47fec0942fa0
+ezoic.com, 79309, DIRECT, 8c5b402d2d7f7d90
